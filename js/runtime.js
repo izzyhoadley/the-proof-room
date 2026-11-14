@@ -120,6 +120,24 @@
 
   // KaTeX-rendered maths gets its own component type, so Preact never recycles a
   // typeset <span> for plain text (or the other way round).
+  // Display maths can't wrap, so a formula wider than its box is scaled down to fit
+  // (to no less than 65%) instead of making students scroll sideways.
+  function fitTex(el) {
+    if (!el || !el.isConnected || !("display" in el.dataset)) return;
+    el.style.fontSize = "";
+    const avail = el.clientWidth, need = el.scrollWidth;
+    if (avail && need > avail + 1) el.style.fontSize = Math.max(0.65, avail / need) * 100 + "%";
+  }
+  let fitQueued = false;
+  window.addEventListener("resize", () => {
+    if (fitQueued) return;
+    fitQueued = true;
+    requestAnimationFrame(() => { fitQueued = false; document.querySelectorAll("[data-tex][data-display]").forEach(fitTex); });
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => document.querySelectorAll("[data-tex][data-display]").forEach(fitTex));
+  }
+
   function Tex(props) {
     const { tag, tex, display, attrs } = props;
     let html = "";
@@ -130,7 +148,7 @@
     } catch (e) { html = tex || ""; }
     return h(tag, Object.assign({}, attrs, {
       dangerouslySetInnerHTML: { __html: html },
-      ref: el => { if (el) el.__tex = tex; }
+      ref: el => { if (el) { el.__tex = tex; requestAnimationFrame(() => fitTex(el)); } }
     }));
   }
 
