@@ -1,0 +1,22 @@
+# Caching rules for Hostinger (LiteSpeed/Apache read this file).
+#
+# Pages, scripts, styles and data: browsers must check for a newer version on every
+# visit. If nothing has changed the server answers "304 Not Modified", so it costs
+# almost nothing, and students see updates straight away without a hard refresh.
+#
+# Fonts never change, so they are cached for a year. Diagrams and videos are cached
+# for a day, in case one is replaced with a new file of the same name.
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html?|css|js|json)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  <FilesMatch "\.(woff2?|ttf|otf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(webp|png|jpe?g|gif|svg|mp4|webm|pdf)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>

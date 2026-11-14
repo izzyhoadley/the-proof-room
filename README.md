@@ -48,3 +48,14 @@ the nearest page that exists.
   (Vectors lesson 3 uses `lessons/vectors/scalar-product.mp4`).
 - **Change the home grid columns, opening tab, or instant quiz feedback:** the settings at the
   bottom of `js/app.js`.
+
+## Updates and caching
+
+`.htaccess` tells browsers to check for a newer version of the pages, scripts, styles and
+data on every visit, so students see changes without a hard refresh. It's a hidden file:
+if you upload by zip, make sure it ends up in `public_html` alongside `index.html`.
+
+To check it's working: open the site in Chrome, press F12, go to **Network**, reload, click
+`app.js`, and look under **Response Headers** for `cache-control: no-cache`.
+
+If Hostinger's CDN is switched on, purge its cache after an update (hPanel → CDN).
