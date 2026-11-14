@@ -13,7 +13,8 @@ then open http://localhost:8000.
 
 | What | File |
 | --- | --- |
-| Page markup (all screens) | `index.html`, inside `<script id="app-template">` |
+| Page markup (all screens) | `template.html` |
+| Loader that always fetches the latest files | `index.html` |
 | Course list, topics, exam-watch questions, vectors lessons, page logic | `js/app.js` |
 | Notes for the other topics | `data/course-content.json` |
 | "Check yourself" quizzes for the other topics | `data/quizzes.json` |
@@ -51,11 +52,15 @@ the nearest page that exists.
 
 ## Updates and caching
 
-`.htaccess` tells browsers to check for a newer version of the pages, scripts, styles and
-data on every visit, so students see changes without a hard refresh. It's a hidden file:
-if you upload by zip, make sure it ends up in `public_html` alongside `index.html`.
+`index.html` loads the site's own files (styles, scripts, `template.html`, `data/*.json`)
+asking the server for the latest version every time, so students see changes on their next
+visit without a hard refresh, whatever caching Hostinger is set to. Unchanged files come
+back as a quick "not modified", so it stays fast.
 
-To check it's working: open the site in Chrome, press F12, go to **Network**, reload, click
-`app.js`, and look under **Response Headers** for `cache-control: no-cache`.
+`.htaccess` adds the same rule at the server where Hostinger honours it. It's a hidden file:
+if you upload by zip, check it ends up in `public_html` alongside `index.html`.
+
+If you add a new stylesheet or script, add it to the `STYLES` or `SCRIPTS` list in
+`index.html`.
 
 If Hostinger's CDN is switched on, purge its cache after an update (hPanel → CDN).

@@ -1,0 +1,544 @@
+<!-- Page markup for The Proof Room. Loaded by index.html; see js/runtime.js for the
+     template syntax ({{ }}, sc-if, sc-for). Open the site through index.html, not this file. -->
+<div style="font-family: Work Sans; color: var(--color-text); min-height: 100vh; background-color: #FDFDFD">
+
+  <header style="display: flex; align-items: center; gap: 26.4px; padding: 17.6px 44px; border-bottom: 1px solid var(--color-divider); position: sticky; top: 0; z-index: 20; background-color: #EE6464">
+    <div onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+      <div style="width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; color: #fff; font-family: var(--font-heading); font-size: 17px; line-height: 1; background-color: #0F0F0F">p</div>
+      <span style="font-family: var(--font-heading); font-size: 20px;">The Proof&nbsp;Room</span>
+    </div>
+    <nav style="display: flex; gap: 4px; margin-left: auto;">
+      <button onClick="{{ goHome }}" style="border: 0; background: transparent; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--color-neutral-700); padding: 8.8px 17.6px; border-radius: 999px; cursor: pointer;" style-hover="background: var(--color-accent-200); color: var(--color-accent-800);">Courses</button>
+      <button onClick="{{ goCourse }}" style="border: 0; background: transparent; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--color-neutral-700); padding: 8.8px 17.6px; border-radius: 999px; cursor: pointer;" style-hover="background: var(--color-accent-200); color: var(--color-accent-800);">Topics</button>
+      <button onClick="{{ goLesson }}" style="border: 0; background: transparent; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--color-neutral-700); padding: 8.8px 17.6px; border-radius: 999px; cursor: pointer;" style-hover="background: var(--color-accent-200); color: var(--color-accent-800);">Interactives</button>
+      <button onClick="{{ goLesson }}" style="border: 0; color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 700; padding: 8.8px 22px; border-radius: 999px; cursor: pointer; margin-left: 8.8px; background-color: #0C0C0C" style-hover="background: var(--color-accent-600);">Pick up where I left off</button>
+    </nav>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main style="max-width: 1180px; margin: 0 auto; padding: 70px 44px 105px; background-color: #FBFBFB; box-shadow: 0px 4px 12px 0px #3A282826">
+    <div style="max-width: 700px;">
+      
+      <h1 style="font-family: Work Sans; font-size: 62px; line-height: 1.04; margin: 0 0 26.4px; text-wrap: pretty; width: 888px; height: 118px">Mathematics Interactive&nbsp;</h1>
+      
+      <h2 style="font-family: var(--font-heading); font-size: 32px; margin: 0;">Courses</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat({{ courseColumns }}, minmax(0, 1fr)); gap: 22px; margin-top: 22px;">
+      <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
+        <article onClick="{{ c.open }}" style="{{ c.cardStyle }}" style-hover="transform: translateY(-4px); box-shadow: var(--shadow-lg);">
+          <div style="{{ c.blobStyle }}"></div>
+          
+        <div style="position: relative; z-index: 1;">
+            <span style="display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; padding: 5px 13.2px; border-radius: 999px; background: rgba(255,255,255,0.55); color: var(--color-neutral-800);">{{ c.band }}</span>
+            <h3 style="font-family: var(--font-heading); font-size: 27px; line-height: 1.15; margin: 17.6px 0 8.8px;">{{ c.title }}</h3>
+            <p style="font-size: 15px; line-height: 1.5; color: var(--color-neutral-800); margin: 0 0 26.4px; text-wrap: pretty;">{{ c.blurb }}</p>
+            <div style="display: flex; align-items: center; gap: 8.8px; font-size: 14px; font-weight: 700; color: var(--color-neutral-800);">
+              <span>{{ c.count }}</span>
+              <span style="opacity: 0.4;">/</span>
+              <span>{{ c.next }}</span>
+            </div>
+          </div></article>
+      </sc-for>
+    </div>
+
+    <div style="margin-top: 88px; background: #fff0bf; border-radius: 28px; padding: 44px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 44px; align-items: center;">
+      <div>
+        <h2 style="font-family: var(--font-heading); font-size: 30px; margin: 0 0 13.2px;">A note on how to use this</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: var(--color-accent-2-800); margin: 0; text-wrap: pretty;">Read the notes, then break the interactive. Genuinely — drag the sliders to silly values and see whether the formula still behaves. If something doesn't make sense, that is useful information and I would like to hear about it in class.</p>
+      </div>
+      <div style="display: grid; gap: 13.2px;">
+        <sc-for list="{{ howto }}" as="h" hint-placeholder-count="3">
+          <div style="display: flex; gap: 13.2px; align-items: flex-start; background: var(--color-neutral-100); border-radius: 16px; padding: 15px 17.6px;">
+            <span style="flex: none; width: 28px; height: 28px; border-radius: 999px; background: var(--color-accent-2-600); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700;">{{ h.n }}</span>
+            <span style="font-size: 15px; line-height: 1.45;">{{ h.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isCourse }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width: 1180px; margin: 0 auto; padding: 44px 44px 105px;">
+    <div style="display: flex; gap: 8.8px; font-size: 14px; color: var(--color-neutral-600); margin-bottom: 35.2px;">
+      <span onClick="{{ goHome }}" style="cursor: pointer; font-weight: 600; color: var(--color-accent-700);">Courses</span>
+      <span>/</span>
+      <span>Specialist Maths</span>
+    </div>
+    <p style="font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 13.2px;">Units 3 &amp; 4</p>
+    <h1 style="font-family: var(--font-heading); font-size: 52px; line-height: 1.06; margin: 0 0 17.6px;">Specialist Maths</h1>
+    <p style="font-size: 19px; line-height: 1.55; color: var(--color-neutral-700); margin: 0; max-width: 680px; text-wrap: pretty;">{{ courseSummary }}</p>
+    <div style="display: grid; gap: 52px; margin-top: 52px;">
+      <sc-for list="{{ strands }}" as="st" hint-placeholder-count="5">
+        <section>
+          <div style="display: flex; align-items: center; gap: 13.2px; margin-bottom: 17.6px;">
+            <span style="{{ st.dotStyle }}"></span>
+            <h2 style="font-family: var(--font-heading); font-size: 26px; margin: 0;">{{ st.name }}</h2>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 17.6px;">
+            <sc-for list="{{ st.topics }}" as="tp" hint-placeholder-count="3">
+              <article onClick="{{ tp.open }}" style="{{ tp.cardStyle }}" style-hover="transform: translateY(-4px); box-shadow: var(--shadow-lg);">
+                <div style="{{ tp.blobStyle }}"></div>
+                <div style="position: relative; z-index: 1; display: grid; gap: 8.8px;">
+                  <sc-if value="{{ tp.unit }}" hint-placeholder-val="{{ false }}">
+                    <span style="justify-self: start; font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.6); color: var(--color-neutral-800);">{{ tp.unit }}</span>
+                  </sc-if>
+                  <h3 style="font-family: var(--font-heading); font-size: 23px; line-height: 1.2; margin: 0;">{{ tp.title }}</h3>
+                  <p style="font-size: 14px; line-height: 1.5; color: var(--color-neutral-800); margin: 0; text-wrap: pretty;">{{ tp.intro }}</p>
+                  <span style="font-size: 14px; font-weight: 700; color: var(--color-neutral-800); margin-top: 4px;">{{ tp.meta }}</span>
+                </div>
+              </article>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isTopic }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width: 1180px; margin: 0 auto; padding: 44px 44px 105px;">
+    <div style="display: flex; gap: 8.8px; font-size: 14px; color: var(--color-neutral-600); margin-bottom: 35.2px;">
+      <span onClick="{{ goHome }}" style="cursor: pointer; font-weight: 600; color: var(--color-accent-700);">Courses</span>
+      <span>/</span>
+      <span onClick="{{ goCourse }}" style="cursor: pointer; font-weight: 600; color: var(--color-accent-700);">Specialist Maths</span>
+      <span>/</span>
+      <span>{{ topic.title }}</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 70px; align-items: start;">
+      <div>
+        <p style="font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 13.2px;">{{ topic.kicker }}</p>
+        <h1 style="font-family: var(--font-heading); font-size: 52px; line-height: 1.06; margin: 0 0 22px;">{{ topic.title }}</h1>
+        <p style="font-size: 19px; line-height: 1.55; color: var(--color-neutral-700); margin: 0; text-wrap: pretty;">{{ topic.intro }}</p>
+      </div>
+      <div style="{{ topic.panelStyle }}">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 13.2px;">
+          <sc-for list="{{ topic.stats }}" as="sx" hint-placeholder-count="2">
+            <div style="background: rgba(255,255,255,0.65); border-radius: 16px; padding: 15px 17.6px;">
+              <div style="font-family: var(--font-heading); font-size: 30px; line-height: 1;">{{ sx.value }}</div>
+              <div style="font-size: 13px; font-weight: 700; color: var(--color-neutral-800); margin-top: 6px;">{{ sx.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 8.8px; flex-wrap: wrap; margin-top: 17.6px;">
+          <button onClick="{{ topic.prev }}" style="flex: 1; min-width: 120px; background: rgba(255,255,255,0.65); border: 0; color: var(--color-neutral-900); font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 12px 17.6px; border-radius: 999px; cursor: pointer; text-align: left;" style-hover="background: #fff;">← {{ topic.prevTitle }}</button>
+          <button onClick="{{ topic.next }}" style="flex: 1; min-width: 120px; background: rgba(255,255,255,0.65); border: 0; color: var(--color-neutral-900); font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 12px 17.6px; border-radius: 999px; cursor: pointer; text-align: right;" style-hover="background: #fff;">{{ topic.nextTitle }} →</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="font-family: var(--font-heading); font-size: 26px; margin: 70px 0 22px;">Lessons</h2>
+    <div style="display: grid; gap: 13.2px;">
+      <sc-for list="{{ lessons }}" as="l" hint-placeholder-count="7">
+        <article onClick="{{ l.open }}" style="{{ l.rowStyle }}" style-hover="{{ l.hoverStyle }}">
+          <div style="{{ l.numStyle }}">
+            <sc-if value="{{ l.done }}" hint-placeholder-val="{{ false }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            </sc-if>
+            <sc-if value="{{ l.notDone }}" hint-placeholder-val="{{ true }}">
+              <span>{{ l.n }}</span>
+            </sc-if>
+          </div>
+          <div style="min-width: 0;">
+            <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0 0 6px; line-height: 1.2;">{{ l.title }}</h3>
+            <p style="font-size: 15px; line-height: 1.45; color: var(--color-neutral-700); margin: 0; text-wrap: pretty;">{{ l.blurb }}</p>
+            <sc-if value="{{ l.practice }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size: 14px; line-height: 1.45; font-weight: 600; color: var(--color-neutral-800); margin: 8px 0 0;">Practice: {{ l.practice }}</p>
+            </sc-if>
+          </div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; align-items: center;">
+            <sc-for list="{{ l.chips }}" as="chip" hint-placeholder-count="2">
+              <span style="{{ chip.style }}">{{ chip.label }}</span>
+            </sc-for>
+          </div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--color-neutral-600); white-space: nowrap; text-align: right;">{{ l.mins }}</div>
+        </article>
+      </sc-for>
+    </div>
+    <section style="margin-top: 70px;">
+      <div style="display: flex; align-items: baseline; gap: 17.6px; flex-wrap: wrap; margin-bottom: 22px;">
+        <h2 style="font-family: var(--font-heading); font-size: 26px; margin: 0;">Exam watch</h2>
+        <span style="font-size: 15px; color: var(--color-neutral-700);">Patterns from this year's trial and NHT papers</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 22px; align-items: start;">
+        <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 30px; box-shadow: var(--shadow-sm);">
+          <h3 style="font-family: var(--font-heading); font-size: 20px; margin: 0 0 17.6px;">How it shows up</h3>
+          <div style="display: grid; gap: 15px;">
+            <sc-for list="{{ exam.patterns }}" as="pt" hint-placeholder-count="3">
+              <div style="display: grid; gap: 6px;">
+                <span style="font-size: 16px; line-height: 1.5; text-wrap: pretty;">{{ pt.text }}</span>
+                <span style="{{ pt.srcStyle }}">{{ pt.src }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="{{ exam.cardStyle }}">
+          <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 10px;">Tricky one · {{ exam.marks }}</p>
+          <p style="font-size: 18px; line-height: 1.55; margin: 0 0 20px; text-wrap: pretty;">{{ exam.question }}</p>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ exam.shownSteps }}" as="sp" hint-placeholder-count="0">
+              <div style="display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; background: rgba(255,255,255,0.7); border-radius: 16px; padding: 12px 15px;">
+                <span style="width: 26px; height: 26px; border-radius: 999px; background: var(--color-neutral-900); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700;">{{ sp.n }}</span>
+                <span style="font-size: 16px; line-height: 1.5;">{{ sp.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ exam.finished }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #fff; border-radius: 16px; padding: 15px 17.6px; margin-top: 12px;">
+              <span style="flex: none; width: 28px; height: 28px; border-radius: 999px; background: #f2542d; color: #fff; display: grid; place-items: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+              </span>
+              <span style="font-size: 15px; line-height: 1.5;"><strong>Where marks go missing:</strong> {{ exam.trap }}</span>
+            </div>
+          </sc-if>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+            <button onClick="{{ exam.nextStep }}" style="border: 0; background: var(--color-neutral-900); color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 12px 24px; border-radius: 999px; cursor: pointer;" style-hover="background: #000;">{{ exam.nextLabel }}</button>
+            <button onClick="{{ exam.reset }}" style="border: 0; background: rgba(255,255,255,0.7); color: var(--color-neutral-900); font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 12px 24px; border-radius: 999px; cursor: pointer;" style-hover="background: #fff;">Start again</button>
+          </div>
+          <p style="font-size: 13px; line-height: 1.45; margin: 15px 0 0; color: var(--color-neutral-800);">{{ exam.note }}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isLesson }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width: 1180px; margin: 0 auto; padding: 44px 44px 105px;">
+    <div style="display: flex; gap: 8.8px; font-size: 14px; color: var(--color-neutral-600); margin-bottom: 30px;">
+      <span onClick="{{ goHome }}" style="cursor: pointer; font-weight: 600; color: var(--color-accent-700);">Courses</span>
+      <span>/</span>
+      <span onClick="{{ goLessonTopic }}" style="cursor: pointer; font-weight: 600; color: var(--color-accent-700);">{{ lessonTopicTitle }}</span>
+      <span>/</span>
+      <span>{{ lessonCrumb }}</span>
+    </div>
+
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 44px; flex-wrap: wrap;">
+      <div style="max-width: 720px;">
+        <p style="font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 13.2px;">{{ lessonKicker }}</p>
+        <h1 style="font-family: var(--font-heading); font-size: 46px; line-height: 1.08; margin: 0 0 17.6px;">{{ lessonTitle }}</h1>
+        <sc-if value="{{ hasIntro }}" hint-placeholder-val="{{ true }}"><p style="font-size: 19px; line-height: 1.55; color: var(--color-neutral-700); margin: 0; text-wrap: pretty;"><sc-for list="{{ lessonIntro }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p></sc-if>
+      </div>
+      <div style="display: flex; gap: 8.8px; flex-wrap: wrap;">
+        <button onClick="{{ prevLesson }}" style="background: transparent; border: 2px solid var(--color-neutral-300); color: var(--color-neutral-800); font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 999px; cursor: pointer;" style-hover="border-color: var(--color-accent-400);">{{ prevLabel }}</button>
+        <button onClick="{{ nextLesson }}" style="background: var(--color-accent); border: 0; color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 12px 22px; border-radius: 999px; cursor: pointer;" style-hover="background: var(--color-accent-600);">{{ nextLabel }}</button>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 6px; margin: 44px 0 35.2px; padding: 6px; background: var(--color-neutral-200); border-radius: 999px; width: fit-content;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+        <button onClick="{{ t.select }}" style="{{ t.style }}">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ onNotes3 }}" hint-placeholder-val="{{ true }}">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 52px; align-items: start;">
+      <article style="min-width: 0;">
+        <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 0px 0 15px;">The Dot Product</h2>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">If <span data-tex="\utilde{a} = a_1\utilde{i} + a_2\utilde{j} + a_3\utilde{k}"></span> and <span data-tex="\utilde{b} = b_1\utilde{i} + b_2\utilde{j} + b_3\utilde{k}"></span>, the scalar product is:</p>
+        <div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="\utilde{a} \cdot \utilde{b} = a_1b_1 + a_2b_2 + a_3b_3" data-display="1"></div></div>
+        <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 44px 0 15px;">Geometric Interpretation</h2>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">The scalar product can also be expressed as:</p>
+        <div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="\utilde{a} \cdot \utilde{b} = |\utilde{a}||\utilde{b}|\cos(\theta)" data-display="1"></div></div>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">where <span data-tex="\theta"></span> is the angle between the two ‘outgoing’ vectors.</p>
+        <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 44px 0 15px;">Properties of the Scalar Product</h2>
+        <ol style="display: grid; gap: 8px; margin: 0; padding-left: 22px; font-size: 17px; line-height: 1.7; color: var(--color-neutral-800);">
+          <li>The scalar product is a real number, <strong>not</strong> a vector.</li>
+          <li>The scalar product is commutative: <span data-tex="\utilde{a} \cdot \utilde{b} = \utilde{b} \cdot \utilde{a}"></span></li>
+          <li>The scalar product is distributive: <span data-tex="\utilde{a} \cdot (\utilde{b} + \utilde{c}) = \utilde{a} \cdot \utilde{b} + \utilde{a} \cdot \utilde{c}"></span></li>
+          <li><span data-tex="m(\utilde{a} \cdot \utilde{b}) = (m\utilde{a}) \cdot \utilde{b} = \utilde{a} \cdot (m\utilde{b})"></span> for all <span data-tex="m \in \mathbb{R}"></span></li>
+          <li><span data-tex="\utilde{a} \cdot \utilde{a} = |\utilde{a}|^2"></span></li>
+          <li>The scalar product of perpendicular vectors is 0.</li>
+        </ol>
+        <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 44px 0 15px;">Angle Between Two Vectors</h2>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">To find the angle between two vectors, rearrange the formula:</p>
+        <div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="\cos(\theta) = \dfrac{\utilde{a} \cdot \utilde{b} }{|\utilde{a}||\utilde{b}|}" data-display="1"></div></div>
+        <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 44px 0 15px;">Scalar and Vector Projections</h2>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">Any vector <span data-tex="\utilde{a}"></span> can be written as the sum of two vectors: one parallel to a given vector <span data-tex="\utilde{b}"></span> and one perpendicular to <span data-tex="\utilde{b}"></span>.</p>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">The <strong>scalar projection</strong> (or <strong>scalar resolute</strong>) of <span data-tex="\utilde{a}"></span> on <span data-tex="\utilde{b}"></span> is:</p>
+        <div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="\utilde{a} \cdot \hat{b}" data-display="1"></div></div>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">The <strong>vector projection</strong> (or <strong>vector resolute</strong>) of <span data-tex="\utilde{a}"></span> on <span data-tex="\utilde{b}"></span> is:</p>
+        <div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="(\utilde{a} \cdot \hat{b})\hat{b} = \dfrac{\utilde{a} \cdot \utilde{b} }{|\utilde{b}|^2}\utilde{b} = \dfrac{\utilde{a} \cdot \utilde{b} }{\utilde{b} \cdot \utilde{b} }\utilde{b}" data-display="1"></div></div>
+        <p style="font-size: 17px; line-height: 1.7; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;">The <strong>vector projection</strong> of <span data-tex="\utilde{a}"></span> <strong>perpendicular</strong> to <span data-tex="\utilde{b}"></span> is:</p>
+        <div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="\utilde{a} - (\utilde{a} \cdot \hat{b})\hat{b}" data-display="1"></div></div>
+        <div style="display: flex; gap: 17.6px; background: #ffd9cc; border-radius: 28px; padding: 26.4px 30px; margin: 35.2px 0 0;">
+          <div style="flex: none; width: 38px; height: 38px; border-radius: 999px; background: #f2542d; color: #fff; display: grid; place-items: center;">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+          </div>
+          <div>
+            <p style="font-family: var(--font-heading); font-size: 20px; margin: 0 0 6px;">Watch out</p>
+            <p style="font-size: 16px; line-height: 1.7; color: #7a1f08; margin: 0; text-wrap: pretty;">The scalar projection and the vector projection are not the same object. The scalar projection <span data-tex="\utilde{a} \cdot \hat{b}"></span> is a signed length. The vector projection is that length pointing along the unit vector <span data-tex="\hat{b}"></span>. Losing the <span data-tex="\hat{b}"></span> is the single most common mark drop in this topic.</p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 17.6px; flex-wrap: wrap; background: #fff0bf; border-radius: 28px; padding: 22px 30px; margin-top: 35.2px;">
+          <span style="font-size: 17px; font-weight: 600; color: #5c3b00;">Six examples for this lesson are on the Practice tab.</span>
+          <button onClick="{{ goPractice }}" style="border: 0; background: #ffd96a; color: #5c3b00; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 11px 24px; border-radius: 999px; cursor: pointer;" style-hover="background: #ffcd3c;">Go to examples →</button>
+        </div>
+      </article>
+
+      <aside style="position: sticky; top: 120px; display: grid; gap: 22px;">
+        <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 26.4px; box-shadow: var(--shadow-md);">
+          <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 4px;">Interactive</p>
+          <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0 0 15px; line-height: 1.2;">Two arrows, one number</h3>
+          <div style="background: var(--color-neutral-200); border-radius: 16px; overflow: hidden;">{{ scene }}</div>
+          <div style="display: flex; align-items: center; gap: 13.2px; margin: 15px 0 17.6px;">
+            <span style="font-size: 13px; font-weight: 700; color: var(--color-neutral-600); white-space: nowrap;">Spin</span>
+            <input type="range" min="0" max="6.28" step="0.02" value="{{ yaw }}" onInput="{{ setYaw }}" style="flex: 1;">
+          </div>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ sliders }}" as="s" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 34px minmax(0, 1fr) 40px; gap: 10px; align-items: center;">
+                <span style="{{ s.labelStyle }}">{{ s.label }}</span>
+                <input type="range" min="-5" max="5" step="0.5" value="{{ s.value }}" onInput="{{ s.onInput }}" class="{{ s.cls }}">
+                <span style="font-size: 14px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums;">{{ s.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8.8px; margin-top: 17.6px;">
+            <sc-for list="{{ readouts }}" as="r" hint-placeholder-count="4">
+              <div style="background: var(--color-bg); border-radius: 16px; padding: 12px 15px;">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 3px;">{{ r.label }}</div>
+                <div style="font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums;">{{ r.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <p style="font-size: 14px; line-height: 1.5; color: var(--color-neutral-700); margin: 15px 0 0; text-wrap: pretty;">{{ sceneHint }}</p>
+        </div>
+        <div style="background: #e6dcff; border-radius: 28px; padding: 22px 26.4px;">
+          <p style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 8px;">Try this</p>
+          <p style="font-size: 15px; line-height: 1.55; color: #35208a; margin: 0; text-wrap: pretty;">Find three different pairs where the dot product is exactly zero. What do all your pairs have in common?</p>
+        </div>
+      </aside>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ onVideo3 }}" hint-placeholder-val="{{ false }}">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 44px; align-items: start;">
+      <div>
+        <video controls="" poster="" src="lessons/vectors/scalar-product.mp4" style="width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-800); border-radius: 28px; display: block; box-shadow: var(--shadow-md);"></video>
+        <h2 style="font-family: var(--font-heading); font-size: 26px; margin: 30px 0 10px;">Scalar product, start to finish (14 min)</h2>
+        <p style="font-size: 17px; line-height: 1.65; color: var(--color-neutral-800); margin: 0; text-wrap: pretty;">Recorded on the visualiser above. I derive both forms, do the worked example from the notes at full speed, and then do it again slowly with the common mistakes left in on purpose.</p>
+      </div>
+      <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 26.4px; box-shadow: var(--shadow-sm);">
+        <h3 style="font-family: var(--font-heading); font-size: 20px; margin: 0 0 17.6px;">Chapters</h3>
+        <div style="display: grid; gap: 4px;">
+          <sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 13.2px; align-items: baseline; padding: 10px 12px; border-radius: 16px; cursor: pointer;" style-hover="background: var(--color-accent-100);">
+              <span style="font-size: 13px; font-weight: 700; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">{{ ch.t }}</span>
+              <span style="font-size: 15px; line-height: 1.4;">{{ ch.title }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ onPractice3 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <h2 style="font-family: var(--font-heading); font-size: 30px; margin: 0 0 8px;">Examples</h2>
+      <p style="font-size: 16px; line-height: 1.55; color: var(--color-neutral-700); margin: 0 0 22px;">From the Lesson 3 notes. Practice: Ex 1.4 Q3, 4, 5, 9, 10, 11, 12, 15, 16, 19, 21, 22</p>
+      <div class="practice-wide" style="display: grid; gap: 17.6px; margin-bottom: 52px;">
+        <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">Example 3.1</span><div style="font-size: 17px; line-height: 1.8;">Find the scalar product of the vectors <span data-tex="\utilde{a} = \utilde{i} - 2\utilde{j} + 7\utilde{k}"></span> and <span data-tex="\utilde{b} = 3\utilde{i} + \utilde{k}"></span>.</div><div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="vectors-l3-ex1" hint-size="100%,440px"></x-import></div></div>
+        <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">Example 3.2</span><div style="font-size: 17px; line-height: 1.8;">Find the value of <span data-tex="m"></span> if the vectors <span data-tex="\utilde{a} = \utilde{i} - 2\utilde{j} + 7\utilde{k}"></span> and <span data-tex="\utilde{b} = 3\utilde{i} + m\utilde{j} + \utilde{k}"></span> are perpendicular.</div><div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="vectors-l3-ex2" hint-size="100%,440px"></x-import></div></div>
+        <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">Example 3.3</span><div style="font-size: 17px; line-height: 1.8;">Find the angle between the vectors <span data-tex="\utilde{a} = \utilde{i} - 2\utilde{j} + 7\utilde{k}"></span> and <span data-tex="\utilde{b} = 3\utilde{i} + \utilde{k}"></span>, expressed in degrees correct to two decimal places.</div><div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="vectors-l3-ex3" hint-size="100%,440px"></x-import></div></div>
+        <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">Example 3.4</span><div style="font-size: 17px; line-height: 1.8;">Given that <span data-tex="A(-1, 3)"></span>, <span data-tex="B(3, 6)"></span> and <span data-tex="C(-4, 4)"></span>.<ol type="a" style="margin: 8px 0 0; padding-left: 22px; display: grid; gap: 4px;"><li>Find the vectors <span data-tex="\overrightarrow{AB}"></span> and <span data-tex="\overrightarrow{AC}"></span>.</li><li>Find the size of <span data-tex="\angle BAC"></span> to the nearest whole degree.</li></ol></div><div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="vectors-l3-ex4" hint-size="100%,440px"></x-import></div></div>
+        <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">Example 3.5</span><div style="font-size: 17px; line-height: 1.8;"><span data-tex="A"></span>, <span data-tex="B"></span> and <span data-tex="C"></span> are points defined by the position vectors <span data-tex="\utilde{a}"></span>, <span data-tex="\utilde{b}"></span>, and <span data-tex="\utilde{c}"></span>, where<div data-tex="\utilde{a}=\begin{bmatrix}1\\3\\-1\end{bmatrix} \quad \utilde{b}=\begin{bmatrix}2\\1\\0\end{bmatrix} \quad \utilde{c}=\begin{bmatrix}1\\-2\\-2\end{bmatrix}" data-display="1" style="margin: 10px 0;"></div>Find the magnitude of <span data-tex="\angle ABC"></span> to 1 decimal place.</div><div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="vectors-l3-ex5" hint-size="100%,440px"></x-import></div></div>
+        <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">Example 3.6</span><div style="font-size: 17px; line-height: 1.8;">Find the vector projections of <span data-tex="\utilde{a} = 3\utilde{i} + 6\utilde{j} - 6\utilde{k}"></span> parallel and perpendicular to <span data-tex="\utilde{b} = 4\utilde{i} + 2\utilde{j} - 2\utilde{k}"></span>.</div><div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="vectors-l3-ex6" hint-size="100%,440px"></x-import></div></div>
+      </div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 22px; margin-bottom: 26.4px;">
+        <h2 style="font-family: var(--font-heading); font-size: 30px; margin: 0;">Check yourself</h2>
+        <span style="font-size: 15px; font-weight: 700; color: var(--color-neutral-700);">{{ scoreLine }}</span>
+      </div>
+      <div style="display: grid; gap: 22px;">
+        <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="3">
+          <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 30px 35.2px; box-shadow: var(--shadow-sm);">
+            <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 10px;">{{ q.kicker }}</p>
+            <p style="font-size: 19px; line-height: 1.5; margin: 0 0 22px; text-wrap: pretty;">{{ q.prompt }}</p>
+            <div style="display: grid; gap: 8.8px;">
+              <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ q.answered }}" hint-placeholder-val="{{ false }}">
+              <p style="{{ q.feedbackStyle }}">{{ q.feedback }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top: 26.4px; display: flex; gap: 13.2px;">
+        <button onClick="{{ resetQuiz }}" style="background: transparent; border: 2px solid var(--color-neutral-300); color: var(--color-neutral-800); font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 12px 26px; border-radius: 999px; cursor: pointer;" style-hover="border-color: var(--color-accent-400); background: var(--color-accent-100);">Clear my answers</button>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ onNotesG }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ notesGridStyle }}">
+      <article style="max-width: 780px; min-width: 0;">
+        <sc-for list="{{ gBlocks }}" as="blk" hint-placeholder-count="4">
+          <sc-if value="{{ blk.h }}" hint-placeholder-val="{{ false }}"><h2 style="{{ blk.hStyle }}">{{ blk.h }}</h2></sc-if>
+          <sc-if value="{{ blk.h3 }}" hint-placeholder-val="{{ false }}"><h3 style="font-family: var(--font-heading); font-size: 21px; margin: 22px 0 10px;">{{ blk.h3 }}</h3></sc-if>
+          <sc-if value="{{ blk.isP }}" hint-placeholder-val="{{ true }}"><p style="font-size: 17px; line-height: 1.75; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;"><sc-for list="{{ blk.p }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p></sc-if>
+          <sc-if value="{{ blk.f }}" hint-placeholder-val="{{ false }}"><div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="{{ blk.f }}" data-display="1"></div></div></sc-if>
+          <sc-if value="{{ blk.isUl }}" hint-placeholder-val="{{ false }}"><ul style="display: grid; gap: 8px; margin: 0 0 13.2px; padding-left: 22px; font-size: 17px; line-height: 1.75; color: var(--color-neutral-800);"><sc-for list="{{ blk.list }}" as="it" hint-placeholder-count="2"><li><sc-for list="{{ it }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></li></sc-for></ul></sc-if>
+          <sc-if value="{{ blk.isOl }}" hint-placeholder-val="{{ false }}"><ol type="{{ blk.olType }}" style="display: grid; gap: 8px; margin: 0 0 13.2px; padding-left: 24px; font-size: 17px; line-height: 1.75; color: var(--color-neutral-800);"><sc-for list="{{ blk.list }}" as="it" hint-placeholder-count="2"><li><sc-for list="{{ it }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></li></sc-for></ol></sc-if>
+          <sc-if value="{{ blk.isTable }}" hint-placeholder-val="{{ false }}"><div style="overflow-x: auto; margin: 15px 0 22px;"><table style="border-collapse: collapse; font-size: 16px; line-height: 1.6; background: var(--color-neutral-100); border-radius: 20px; overflow: hidden; min-width: 60%;"><tbody><sc-for list="{{ blk.rows }}" as="row" hint-placeholder-count="3"><tr style="{{ row.style }}"><sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="2"><td style="padding: 10px 18px; border-bottom: 1px solid var(--color-divider); vertical-align: middle;"><sc-for list="{{ cell }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></td></sc-for></tr></sc-for></tbody></table></div></sc-if>
+          <sc-if value="{{ blk.recall }}" hint-placeholder-val="{{ false }}"><div style="background: #e6dcff; border-radius: 28px; padding: 24px 30px; margin: 10px 0 22px; color: #35208a;"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #c9b6ff; color: #35208a; margin-bottom: 12px;">Recall from Unit 1</span><p style="font-size: 17px; line-height: 1.75; margin: 0;"><sc-for list="{{ blk.r1 }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p><div style="font-size: 19px; overflow-x: auto; margin: 10px 0;"><div data-tex="{{ blk.rf }}" data-display="1"></div></div><p style="font-size: 17px; line-height: 1.75; margin: 0; text-wrap: pretty;"><sc-for list="{{ blk.r2 }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p></div></sc-if>
+          <sc-if value="{{ blk.fig }}" hint-placeholder-val="{{ false }}"><div style="max-width: 520px; height: 280px; margin: 15px 0 22px;"><image-slot id="{{ blk.figId }}" shape="rounded" radius="24" fit="contain" placeholder="Drop the diagram from the notes"></image-slot></div></sc-if>
+          <sc-if value="{{ blk.dominoes }}" hint-placeholder-val="{{ false }}"><div style="margin: 10px 0 30px;"><domino-demo></domino-demo></div></sc-if>
+          <sc-if value="{{ blk.miscon }}" hint-placeholder-val="{{ false }}"><section style="background: #ffd9cc; border-radius: 28px; padding: 26px 30px; margin: 10px 0 26px; color: #7a1f08;"><div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;"><span style="flex: none; width: 28px; height: 28px; border-radius: 999px; background: #f2542d; color: #fff; display: grid; place-items: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></span><h3 style="font-family: var(--font-heading); font-size: 21px; margin: 0; color: #201e1d;">Key misconceptions</h3></div><div style="display: grid; gap: 16px;"><sc-for list="{{ blk.misconItems }}" as="mc" hint-placeholder-count="3"><div style="background: rgba(255,255,255,0.6); border-radius: 18px; padding: 16px 20px;"><p style="font-size: 16px; font-weight: 700; margin: 0 0 6px; color: #7a1f08;">{{ mc.title }}</p><p style="font-size: 16px; line-height: 1.75; margin: 0; color: #5c1706; text-wrap: pretty;"><sc-for list="{{ mc.p }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p><sc-if value="{{ mc.f }}" hint-placeholder-val="{{ false }}"><div style="font-size: 18px; margin: 10px 0; color: #5c1706;"><div data-tex="{{ mc.f }}" data-display="1"></div></div></sc-if><sc-if value="{{ mc.p2 }}" hint-placeholder-val="{{ false }}"><p style="font-size: 16px; line-height: 1.75; margin: 0; color: #5c1706; text-wrap: pretty;"><sc-for list="{{ mc.p2 }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p></sc-if></div></sc-for></div></section></sc-if>
+        </sc-for>
+        <sc-if value="{{ hasTelescope }}" hint-placeholder-val="{{ false }}">
+        <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 26.4px 30px; box-shadow: var(--shadow-md); margin: 26.4px 0 0;">
+          <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 4px;">Interactive</p>
+          <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0 0 6px; line-height: 1.2;">Collapse the telescope</h3>
+          <p style="font-size: 15px; line-height: 1.55; color: var(--color-neutral-700); margin: 0 0 17.6px; text-wrap: pretty;">Each section is one term of the sum. Matching colours cancel. Pull the sections in and watch what is left.</p>
+          <div style="position: relative; height: 150px; background: #fff; border-radius: 20px; overflow: hidden;">
+            <sc-for list="{{ tSegs }}" as="sg" hint-placeholder-count="4">
+              <div style="{{ sg.style }}">
+                <div style="{{ sg.labelStyle }}">
+                  <span style="{{ sg.lStyle }}" data-tex="{{ sg.lTex }}"></span>
+                  <span style="{{ sg.rStyle }}" data-tex="{{ sg.rTex }}"></span>
+                </div>
+              </div>
+            </sc-for>
+            <div style="{{ tCapL.style }}"><span data-tex="{{ tCapL.tex }}"></span></div>
+            <div style="{{ tCapR.style }}"><span data-tex="{{ tCapR.tex }}"></span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 13.2px; margin: 17.6px 0 0; flex-wrap: wrap;">
+            <span style="font-size: 13px; font-weight: 700; color: var(--color-neutral-600); white-space: nowrap;">Pull in</span>
+            <input type="range" min="0" max="1" step="0.01" value="{{ tc }}" onInput="{{ setTc }}" style="flex: 1; min-width: 160px;">
+            <button onClick="{{ tToggle }}" style="border: 0; background: #1fa38a; color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 999px; cursor: pointer;" style-hover="background: #17816d;">{{ tToggleLabel }}</button>
+            <div style="display: flex; align-items: center; gap: 4px; background: var(--color-neutral-200); border-radius: 999px; padding: 4px;">
+              <button onClick="{{ tLess }}" style="border: 0; background: transparent; width: 36px; height: 36px; border-radius: 999px; font-size: 18px; font-weight: 800; cursor: pointer; color: var(--color-neutral-800);" style-hover="background: #fff;">−</button>
+              <span style="font-size: 14px; font-weight: 700; min-width: 64px; text-align: center;">{{ tnLabel }}</span>
+              <button onClick="{{ tMore }}" style="border: 0; background: transparent; width: 36px; height: 36px; border-radius: 999px; font-size: 18px; font-weight: 800; cursor: pointer; color: var(--color-neutral-800);" style-hover="background: #fff;">+</button>
+            </div>
+          </div>
+          <div style="background: #d4f3ea; color: #0b4a3e; border-radius: 20px; padding: 15px 20px; margin-top: 17.6px; overflow-x: auto; font-size: 17px;">
+            <div data-tex="{{ tExpr }}" data-display="1"></div>
+            <sc-if value="{{ tDone }}" hint-placeholder-val="{{ false }}"><div data-tex="{{ tResult }}" data-display="1"></div></sc-if>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ hasWatch }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; gap: 17.6px; background: #ffd9cc; border-radius: 28px; padding: 26.4px 30px; margin: 35.2px 0 0;">
+            <div style="flex: none; width: 38px; height: 38px; border-radius: 999px; background: #f2542d; color: #fff; display: grid; place-items: center;">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+            </div>
+            <div>
+              <p style="font-family: var(--font-heading); font-size: 20px; margin: 0 0 6px;">Watch out</p>
+              <p style="font-size: 16px; line-height: 1.75; color: #7a1f08; margin: 0; text-wrap: pretty;"><sc-for list="{{ watch }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 17.6px; flex-wrap: wrap; background: #fff0bf; border-radius: 28px; padding: 22px 30px; margin-top: 35.2px;">
+          <span style="font-size: 17px; font-weight: 600; color: #5c3b00;">{{ examplesCta }}</span>
+          <button onClick="{{ goPractice }}" style="border: 0; background: #ffd96a; color: #5c3b00; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 11px 24px; border-radius: 999px; cursor: pointer;" style-hover="background: #ffcd3c;">Go to examples →</button>
+        </div>
+      </article>
+      <sc-if value="{{ hasCrossViz }}" hint-placeholder-val="{{ false }}">
+      <aside style="position: sticky; top: 120px; display: grid; gap: 22px;">
+        <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 26.4px; box-shadow: var(--shadow-md);">
+          <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 4px;">Interactive</p>
+          <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0 0 15px; line-height: 1.2;">Two arrows, a third at right angles</h3>
+          <div style="background: var(--color-neutral-200); border-radius: 16px; overflow: hidden;">{{ cScene }}</div>
+          <div style="display: flex; align-items: center; gap: 13.2px; margin: 15px 0 10px;">
+            <span style="font-size: 13px; font-weight: 700; color: var(--color-neutral-600); white-space: nowrap;">Spin</span>
+            <input type="range" min="0" max="6.28" step="0.02" value="{{ cyaw }}" onInput="{{ setCYaw }}" style="flex: 1;">
+          </div>
+          <div style="display: flex; gap: 6px; padding: 5px; background: var(--color-neutral-200); border-radius: 999px; margin-bottom: 15px;">
+            <sc-for list="{{ cOrder }}" as="o" hint-placeholder-count="2">
+              <button onClick="{{ o.select }}" style="{{ o.style }}">{{ o.label }}</button>
+            </sc-for>
+          </div>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ cSliders }}" as="s" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 34px minmax(0, 1fr) 40px; gap: 10px; align-items: center;">
+                <span style="{{ s.labelStyle }}">{{ s.label }}</span>
+                <input type="range" min="-3" max="3" step="0.5" value="{{ s.value }}" onInput="{{ s.onInput }}" class="{{ s.cls }}">
+                <span style="font-size: 14px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums;">{{ s.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8.8px; margin-top: 17.6px;">
+            <sc-for list="{{ cReadouts }}" as="r" hint-placeholder-count="4">
+              <div style="{{ r.style }}">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 3px;">{{ r.label }}</div>
+                <div style="font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums;">{{ r.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <p style="font-size: 14px; line-height: 1.5; color: var(--color-neutral-700); margin: 15px 0 0; text-wrap: pretty;">{{ cHint }}</p>
+        </div>
+        <div style="background: #e6dcff; border-radius: 28px; padding: 22px 26.4px;">
+          <p style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 8px;">Try this</p>
+          <p style="font-size: 15px; line-height: 1.55; color: #35208a; margin: 0; text-wrap: pretty;">Make the purple parallelogram disappear. What has to be true about a and b? Then switch to b × a and watch which way the purple arrow points.</p>
+        </div>
+      </aside>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ onVideoG }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width: 900px;">
+        <video controls="" src="{{ videoSrc }}" style="width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-800); border-radius: 28px; display: block; box-shadow: var(--shadow-md);"></video>
+        <h2 style="font-family: var(--font-heading); font-size: 26px; margin: 30px 0 10px;">{{ lessonTitle }}</h2>
+        <p style="font-size: 15px; line-height: 1.6; color: var(--color-neutral-700); margin: 0;">Video file: {{ videoSrc }}</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ onPracticeG }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h2 style="font-family: var(--font-heading); font-size: 30px; margin: 0 0 8px;">Examples</h2>
+        <p style="font-size: 16px; line-height: 1.55; color: var(--color-neutral-700); margin: 0 0 22px;">{{ practiceLine }}</p>
+        <div class="practice-wide" style="display: grid; gap: 17.6px;">
+          <sc-for list="{{ gExamples }}" as="ex" hint-placeholder-count="3">
+            <div style="background: var(--color-neutral-100); border: 2px solid #ffd96a; border-radius: 28px; padding: 22px 30px; box-shadow: var(--shadow-sm);">
+              <span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #ffd96a; color: #5c3b00; margin-bottom: 12px;">{{ ex.label }}</span>
+              <div style="font-size: 17px; line-height: 1.8;">
+                <sc-for list="{{ ex.parts }}" as="blk" hint-placeholder-count="4">
+          <sc-if value="{{ blk.h }}" hint-placeholder-val="{{ false }}"><h2 style="{{ blk.hStyle }}">{{ blk.h }}</h2></sc-if>
+          <sc-if value="{{ blk.h3 }}" hint-placeholder-val="{{ false }}"><h3 style="font-family: var(--font-heading); font-size: 21px; margin: 22px 0 10px;">{{ blk.h3 }}</h3></sc-if>
+          <sc-if value="{{ blk.isP }}" hint-placeholder-val="{{ true }}"><p style="font-size: 17px; line-height: 1.75; color: var(--color-neutral-800); margin: 0 0 13.2px; text-wrap: pretty;"><sc-for list="{{ blk.p }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p></sc-if>
+          <sc-if value="{{ blk.f }}" hint-placeholder-val="{{ false }}"><div style="background: #d4f3ea; border-radius: 28px; padding: 20px 30px; margin: 15px 0; color: #0b4a3e; font-size: 20px; overflow-x: auto;"><div data-tex="{{ blk.f }}" data-display="1"></div></div></sc-if>
+          <sc-if value="{{ blk.isUl }}" hint-placeholder-val="{{ false }}"><ul style="display: grid; gap: 8px; margin: 0 0 13.2px; padding-left: 22px; font-size: 17px; line-height: 1.75; color: var(--color-neutral-800);"><sc-for list="{{ blk.list }}" as="it" hint-placeholder-count="2"><li><sc-for list="{{ it }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></li></sc-for></ul></sc-if>
+          <sc-if value="{{ blk.isOl }}" hint-placeholder-val="{{ false }}"><ol type="{{ blk.olType }}" style="display: grid; gap: 8px; margin: 0 0 13.2px; padding-left: 24px; font-size: 17px; line-height: 1.75; color: var(--color-neutral-800);"><sc-for list="{{ blk.list }}" as="it" hint-placeholder-count="2"><li><sc-for list="{{ it }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></li></sc-for></ol></sc-if>
+          <sc-if value="{{ blk.isTable }}" hint-placeholder-val="{{ false }}"><div style="overflow-x: auto; margin: 15px 0 22px;"><table style="border-collapse: collapse; font-size: 16px; line-height: 1.6; background: var(--color-neutral-100); border-radius: 20px; overflow: hidden; min-width: 60%;"><tbody><sc-for list="{{ blk.rows }}" as="row" hint-placeholder-count="3"><tr style="{{ row.style }}"><sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="2"><td style="padding: 10px 18px; border-bottom: 1px solid var(--color-divider); vertical-align: middle;"><sc-for list="{{ cell }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></td></sc-for></tr></sc-for></tbody></table></div></sc-if>
+          <sc-if value="{{ blk.recall }}" hint-placeholder-val="{{ false }}"><div style="background: #e6dcff; border-radius: 28px; padding: 24px 30px; margin: 10px 0 22px; color: #35208a;"><span style="display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 13px; border-radius: 999px; background: #c9b6ff; color: #35208a; margin-bottom: 12px;">Recall from Unit 1</span><p style="font-size: 17px; line-height: 1.75; margin: 0;"><sc-for list="{{ blk.r1 }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p><div style="font-size: 19px; overflow-x: auto; margin: 10px 0;"><div data-tex="{{ blk.rf }}" data-display="1"></div></div><p style="font-size: 17px; line-height: 1.75; margin: 0; text-wrap: pretty;"><sc-for list="{{ blk.r2 }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.t }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if><sc-if value="{{ sg.b }}" hint-placeholder-val="{{ false }}"><strong>{{ sg.b }}</strong></sc-if><sc-if value="{{ sg.m }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.m }}"></span></sc-if><sc-if value="{{ sg.d }}" hint-placeholder-val="{{ false }}"><span data-tex="{{ sg.d }}" data-display="1" style="display: block; overflow-x: auto; margin: 6px 0;"></span></sc-if><sc-if value="{{ sg.c }}" hint-placeholder-val="{{ false }}"><span style="display: block; white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; background: #201e1d; color: #f5ead8; border-radius: 14px; padding: 12px 16px; margin: 8px 0;">{{ sg.c }}</span></sc-if></sc-for></p></div></sc-if>
+          <sc-if value="{{ blk.fig }}" hint-placeholder-val="{{ false }}"><div style="max-width: 520px; height: 240px; margin: 15px 0 22px;"><image-slot id="{{ blk.figId }}" shape="rounded" radius="24" fit="contain" placeholder="Drop the diagram from the notes"></image-slot></div></sc-if>
+        </sc-for>
+              </div>
+              <div style="margin-top: 17.6px;"><x-import component-from-global-scope="work-pad" from="./work-pad.js" data-key="{{ ex.key }}" hint-size="100%,440px"></x-import></div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ hasQuiz }}" hint-placeholder-val="{{ true }}"><div style="margin-top: 52px;"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 22px; margin-bottom: 26.4px;">
+        <h2 style="font-family: var(--font-heading); font-size: 30px; margin: 0;">Check yourself</h2>
+        <span style="font-size: 15px; font-weight: 700; color: var(--color-neutral-700);">{{ scoreLine }}</span>
+      </div>
+      <div style="display: grid; gap: 22px;">
+        <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="3">
+          <div style="background: var(--color-neutral-100); border-radius: 28px; padding: 30px 35.2px; box-shadow: var(--shadow-sm);">
+            <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 10px;">{{ q.kicker }}</p>
+            <p style="font-size: 19px; line-height: 1.5; margin: 0 0 22px; text-wrap: pretty;">{{ q.prompt }}</p>
+            <div style="display: grid; gap: 8.8px;">
+              <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ q.answered }}" hint-placeholder-val="{{ false }}">
+              <p style="{{ q.feedbackStyle }}">{{ q.feedback }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top: 26.4px; display: flex; gap: 13.2px;">
+        <button onClick="{{ resetQuiz }}" style="background: transparent; border: 2px solid var(--color-neutral-300); color: var(--color-neutral-800); font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 12px 26px; border-radius: 999px; cursor: pointer;" style-hover="border-color: var(--color-accent-400); background: var(--color-accent-100);">Clear my answers</button>
+      </div></div></sc-if>
+      </div>
+    </sc-if>
+  </main>
+  </sc-if>
+
+  <footer style="border-top: 1px solid var(--color-divider); padding: 35.2px 44px; text-align: center; font-size: 14px; color: var(--color-neutral-600);">Built for my classes by Isabelle Hoadley. If something here is wrong, tell me and I will fix it before next lesson.</footer>
+</div>

@@ -893,8 +893,8 @@ const BRIGHT = [["#fff0bf", "#ffd96a", "#5c3b00", "#ff9f1c"], ["#ffd9cc", "#ffad
 class Component extends DCLogic {
   componentDidMount() {
     this.renderTex();
-    fetch("data/course-content.json").then(r => r.json()).then(c => this.setState({ content: c })).catch(() => {});
-    fetch("data/quizzes.json").then(r => r.json()).then(q => this.setState({ quizzes: q })).catch(() => {});
+    fetch("data/course-content.json", { cache: "no-cache" }).then(r => r.json()).then(c => this.setState({ content: c })).catch(() => {});
+    fetch("data/quizzes.json", { cache: "no-cache" }).then(r => r.json()).then(q => this.setState({ quizzes: q })).catch(() => {});
   }
   componentDidUpdate() { this.renderTex(); }
   renderTex() {

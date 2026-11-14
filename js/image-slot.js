@@ -9,7 +9,7 @@
   if (customElements.get("image-slot")) return;
 
   let figures = null;
-  const ready = fetch("data/figures.json")
+  const ready = fetch("data/figures.json", { cache: "no-cache" })
     .then(r => r.json())
     .catch(() => ({}))
     .then(m => { figures = m; document.querySelectorAll("image-slot").forEach(el => el.update()); });

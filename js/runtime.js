@@ -1,7 +1,7 @@
 /*
  * Tiny template runtime for the site.
  *
- * The page markup lives in index.html (<script type="text/x-template" id="app-template">)
+ * The page markup lives in template.html (index.html loads it into <script id="app-template">)
  * and uses a small template syntax:
  *   {{ path }}                         dotted lookup into the values returned by renderVals()
  *   <sc-if value="{{ x }}">            render children when x is truthy
