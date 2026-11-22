@@ -890,7 +890,7 @@ const PROOF_WATCH = { proof: {"0":[{"t":"The converse and the inverse are "},{"b
 // ScreenPal videos per topic, keyed by lesson number (1 = Lesson 1).
 // Paste the code from the end of the go.screenpal.com/watch/ link.
 const VIDEOS = {
-  proof: { 1: "cOXYcfn4Amv", 2: "cOXYcfn4Amw" }
+  proof: { 1: "cOXYcfn4Amv", 2: "cOXYcfn4Amw", 3: "cOX332n457b" }
 };
 const STRANDS = ["Proof, algorithms and number", "Functions and graphs", "Calculus", "Vectors", "Probability and statistics"];
 const BRIGHT = [["#fff0bf", "#ffd96a", "#5c3b00", "#ff9f1c"], ["#ffd9cc", "#ffad94", "#7a1f08", "#f2542d"], ["#d4f3ea", "#9fe0cf", "#0b4a3e", "#1fa38a"], ["#e6dcff", "#c9b6ff", "#35208a", "#7b5cff"], ["#fff0bf", "#ffd96a", "#5c3b00", "#ff9f1c"]];
