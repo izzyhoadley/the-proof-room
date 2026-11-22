@@ -1,11 +1,11 @@
-<!-- Page markup for The Proof Room. Loaded by index.html; see js/runtime.js for the
+<!-- Page markup for Hoadley Maths. Loaded by index.html; see js/runtime.js for the
      template syntax ({{ }}, sc-if, sc-for). Open the site through index.html, not this file. -->
 <div style="font-family: Work Sans; color: var(--color-text); min-height: 100vh; background-color: #FDFDFD">
 
   <header style="display: flex; align-items: center; gap: 26.4px; padding: 17.6px 44px; border-bottom: 1px solid var(--color-divider); position: sticky; top: 0; z-index: 20; background-color: #EE6464">
     <div onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-      <div style="width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; color: #fff; font-family: var(--font-heading); font-size: 17px; line-height: 1; background-color: #0F0F0F">p</div>
-      <span style="font-family: var(--font-heading); font-size: 20px;">The Proof&nbsp;Room</span>
+      <div style="width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; color: #fff; font-family: var(--font-heading); font-size: 17px; line-height: 1; background-color: #0F0F0F">h</div>
+      <span style="font-family: var(--font-heading); font-size: 20px;">Hoadley&nbsp;Maths</span>
     </div>
     <nav style="display: flex; gap: 4px; margin-left: auto;">
       <button onClick="{{ goHome }}" style="border: 0; background: transparent; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--color-neutral-700); padding: 8.8px 17.6px; border-radius: 999px; cursor: pointer;" style-hover="background: var(--color-accent-200); color: var(--color-accent-800);">Courses</button>
@@ -481,9 +481,17 @@
 
     <sc-if value="{{ onVideoG }}" hint-placeholder-val="{{ false }}">
       <div style="max-width: 900px;">
-        <video controls="" src="{{ videoSrc }}" style="width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-800); border-radius: 28px; display: block; box-shadow: var(--shadow-md);"></video>
+        <sc-if value="{{ hasVideoEmbed }}" hint-placeholder-val="{{ false }}">
+          <div style="width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-800); border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-md);">
+            <iframe src="{{ videoEmbed }}" title="{{ videoTitle }}" allow="autoplay; fullscreen" allowfullscreen="" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noVideoEmbed }}" hint-placeholder-val="{{ true }}">
+          <div style="width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-100); border: 2px dashed var(--color-divider); border-radius: 28px; display: grid; place-items: center; text-align: center; padding: 24px; box-sizing: border-box;">
+            <p style="font-family: var(--font-heading); font-size: 22px; color: var(--color-neutral-700); margin: 0;">Video coming soon</p>
+          </div>
+        </sc-if>
         <h2 style="font-family: var(--font-heading); font-size: 26px; margin: 30px 0 10px;">{{ lessonTitle }}</h2>
-        <p style="font-size: 15px; line-height: 1.6; color: var(--color-neutral-700); margin: 0;">Video file: {{ videoSrc }}</p>
       </div>
     </sc-if>
 

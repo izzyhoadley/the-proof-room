@@ -1,4 +1,4 @@
-# The Proof Room — Mathematics Interactive
+# Hoadley Maths — Mathematics Interactive
 
 A static site. No build step: upload this folder to any web host and open `index.html`.
 It does need to be served over http(s) (it loads `data/*.json`), so for local testing run:
@@ -45,8 +45,10 @@ the nearest page that exists.
 - **Add a diagram:** put the image in `figures/`, then add `"<slot id>": "figures/<file>"` to
   `data/figures.json`. Slot ids follow the pattern `vec-l1-fig9` (topic, lesson, block number).
   Slots without a diagram are hidden.
-- **Add lesson videos:** the Video tab looks for `lessons/<topic>/lesson-<n>.mp4`
-  (Vectors lesson 3 uses `lessons/vectors/scalar-product.mp4`).
+- **Add lesson videos:** videos are hosted on ScreenPal. Add the code from the end of the
+  `go.screenpal.com/watch/…` link to `VIDEOS` near the top of `js/app.js`, under the topic id
+  and lesson number. Lessons without one show "Video coming soon". (Vectors lesson 3 has its
+  own page and still uses `lessons/vectors/scalar-product.mp4`.)
 - **Change the home grid columns, opening tab, or instant quiz feedback:** the settings at the
   bottom of `js/app.js`.
 
